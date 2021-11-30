@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Weather App</title>
+</head>
+
+<body>
+    <div class="nav-container">
+        <input type="text" id="search-input" placeholder="City">
+        <i class="fas fa-search-location" id="search-icon"></i>
+    </div>
+
+    <div class="cities-container">
+    </div>
+
+    <script id="city-template" type="text/x-handlebars-template">
+        <div class="city-container" data-name={{city-name}}>
+            {{#if CONDITION_HERE}}
+                <img src="SOME_SOURCE_HERE" class="remove">
+            {{else}}
+                <img src="SOME_SOURCE_HERE" class="add">
+            {{/if}}
+
+            <div class="state-container">
+                <h3 class="temperature">{{temperature}}</h3>
+                <h4 class="city-name">{{cityName}}</h4>
+            </div>
+            <div class="state-container">
+                <img class="conditionsImg" src="{{conditionsImg}}">
+                <h4 class="conditions">{{conditions}}</h4>
+            </div>
+        </div>
+    </script>
+
+    <script src="./handlebars/dist/handlebars.js"></script>
+    <script src="./jquery/dist/jquery.js"></script>
+    <script src="TempManager.js"></script>
+    <script src="render.js"></script>
+    <script src="main.js"></script>
+
+</body>
+
+</html>
