@@ -1,7 +1,7 @@
 import express from "express"
 const router = express.Router()
 import urllib from "urllib"
-import City from "./model/City.js"
+import City from "../../model/City.js"
 
 const _API_KEY = "e74a447aaa4485dd6727f10bbd9fcad3"
     // const API_URL = `http://api.openweathermap.org/data/2.5/weather?q=${city}&APPID=${_API_KEY}`
