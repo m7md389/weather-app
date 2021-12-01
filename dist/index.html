@@ -19,19 +19,17 @@
     </div>
 
     <script id="city-template" type="text/x-handlebars-template">
-        <div class="city-container" data-name={{city-name}}>
+        <div class="city-container" data-name={{name}}>
             {{#if CONDITION_HERE}}
-                <img src="SOME_SOURCE_HERE" class="remove">
-            {{else}}
-                <img src="SOME_SOURCE_HERE" class="add">
-            {{/if}}
+            <img src="SOME_SOURCE_HERE" class="remove"> {{else}}
+            <img src="SOME_SOURCE_HERE" class="add"> {{/if}}
 
             <div class="state-container">
                 <h3 class="temperature">{{temperature}}</h3>
-                <h4 class="city-name">{{cityName}}</h4>
+                <h4 class="name">{{name}}</h4>
             </div>
             <div class="state-container">
-                <img class="conditionsImg" src="{{conditionsImg}}">
+                <img class="conditionPic" src="http://openweathermap.org/img/wn/{{conditionPic}}@2x.png">
                 <h4 class="conditions">{{conditions}}</h4>
             </div>
         </div>

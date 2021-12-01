@@ -18,14 +18,19 @@ $("#search-icon").on("click", handleSearch)
 
 
 // An on click for each of the save buttons that:
-$(".cities-container").on("click", ".save", () => {})
-    // Takes the name of the city from the DOM
-    // Calls the saveCity method from an instance of the TempManager, sending the cityName as a parameter
-
+$(".cities-container").on("click", ".save", () => {
+    const cityName = $(".save").closest(".city-container").dataName
+    TempManager.saveCity(cityName)
+    renderer.renderData(TempManager.getDataFromD())
+})
 
 
 // An on click for each of the remove buttons that:
-$(".cities-container").on("click", ".remove", () => {})
+$(".cities-container").on("click", ".remove", () => {
+    const cityName = $(".remove").closest(".city-container").dataName
+    TempManager.removeCity(cityName)
+    renderer.renderData(TempManager.getDataFromD())
+})
     // Takes the name of the city from the DOM
     // Calls the removeCity method from an instance of the TempManager, sending the cityName as a parameter
 

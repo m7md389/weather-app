@@ -8,11 +8,10 @@ class TempManager {
             method: "GET",
             url: `/cities`,
             success: response => {
-                // If any data comes back, set the class' cityData array equal to it
-                // Return response
+                this.cityData = response
             },
             error: function(xhr, text, err) {
-
+                alert(text)
             }
         })
     }
@@ -22,34 +21,33 @@ class TempManager {
             method: "GET",
             url: `/city/:${cityName}`,
             success: response => {
-                // When the data comes back, add an object to the class' cityData array.
-                // It should have these properties:
-
-                // City name
-                // Temperature
-                // Conditions
-                // Condition icon
-                // Any other data you fancy
-
-
+                this.cityData.push(response)
             },
             error: function(xhr, text, err) {
-
+                alert(text)
             }
         })
     }
 
     saveCity(cityName) {
+        let city
+
+        this.cityData.forEach(c=> {
+            if(c.name === cityName){
+                city = c
+                break
+            }
+        })
+
         $.ajax({
             method: "POST",
             url: `/city`,
+            data: city,
             success: response => {
-                // It should find that city's data object from the class' cityData array
-                // Then it should pass it as the body of the post request
-
+                return true
             },
             error: function(xhr, text, err) {
-
+                alert(text)
             }
         })
     }
@@ -59,11 +57,10 @@ class TempManager {
             method: "DELETE",
             url: `/city/${cityName}`,
             success: response => {
-                // done
-
+                return true
             },
             error: function(xhr, text, err) {
-
+                alert(text)
             }
         })
     }

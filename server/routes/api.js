@@ -1,28 +1,54 @@
 import express from "express"
 const router = express.Router()
 import urllib from "urllib"
+import Mongoose from "mongoose"
 import City from "../../model/City.js"
+Mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/weatherapp")
 
-const _API_KEY = "e74a447aaa4485dd6727f10bbd9fcad3"
-    // const API_URL = `http://api.openweathermap.org/data/2.5/weather?q=${city}&APPID=${_API_KEY}`
+const WEATHER_API_KEY = `f7cbcea3b573bde35d701b2374cf5ac0`
 
 router.get("/city/:cityName", function(req, res) {
-    // This should be the route that makes a call to your external API
+    const WEATHER_API_URL = `http://api.openweathermap.org/data/2.5/weather?q=${req.params.cityName}&APPID=${WEATHER_API_KEY}`
+    urllib.request(WEATHER_API_URL, function(err, data, resault) {
+        if (err)
+            throw err;
+
+        const jsonData = JSON.parse(data.toString())
+        const weatherData = {
+            name: jsonData.name,
+            temperature: Math.floor(jsonData.main.temp - 273.15),
+            condition: jsonData.weather[0].description,
+            conditionPic: jsonData.weather[0].icon
+        }
+        res.send(weatherData)
+    })
 })
 
-router.get("/cities", function(req, res) {
-    // This route should find all of the city data saved in your DB, and send it to the client
-
+router.get("/cities", async function(req, res) {
+    City.find({},function(err, cities){
+        res.send(cities)
+    })
 })
 
 router.post("/city", function(req, res) {
-    // This route should take some data from the body, and save it as a new City to your DB
+    const city = req.body
+    new City({
+        name: city.name,
+        temperature: city.temperature,
+        condition: city.condition,
+        conditionPic: city.conditionPic
+    }).save()
+    res.end()
 })
 
 router.delete("/city/:cityName", function(req, res) {
-    // This route should find the city's data in your DB and remove it from your DB
+    const cityName = req.params.cityName
+    City.findOneAndRemove({name: cityName}, function (err, resault) {
+        if (!resault){
+            res.status(404).send(`${cityName} was not found`)
+        }
+        res.status(204).send(`${cityName} deleted successfully`)
+    })
 })
-
-
 
 export default router
