@@ -1,7 +1,6 @@
 import express, { json, urlencoded } from "express"
 import { join, resolve } from "path"
 import api from "./server/routes/api.js"
-import City from "./model/City.js"
 
 const __dirname = resolve()
 
@@ -15,6 +14,6 @@ app.use('/', api)
 
 
 const PORT = 8080
-app.listen(PORT, function() {
+app.listen(process.env.PORT || PORT, function() {
     console.log(`Weather App server is running on port ${PORT}`);
 })
