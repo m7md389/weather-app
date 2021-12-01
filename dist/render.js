@@ -1,13 +1,13 @@
 class Renderer {
     constructor() {
-        const citiesEl = $('.cities-container')
-        const HandlebarsSource = $("#city-template").html()
-        const template = Handlebars.compile(HandlebarsSource)
+        this.citiesEl = $('.cities-container')
+        this.handlebarsSource = $("#city-template").html()
+        this.template = Handlebars.compile(handlebarsSource)
     }
 
     renderData(citiesData) {
-        citiesEl.empty()
-        const newHTML = template({ city: citiesData })
-        citiesEl.append(newHTML)    
+        this.citiesEl.empty()
+        const newHTML = this.template({ city: citiesData })
+        this.citiesEl.append(newHTML)    
     }
 }

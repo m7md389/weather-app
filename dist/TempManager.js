@@ -8,9 +8,10 @@ class TempManager {
             method: "GET",
             url: `/cities`,
             success: response => {
+                response.forEach(city => city.saved = true)
                 this.cityData = response
             },
-            error: function(xhr, text, err) {
+            error: (xhr, text, err) => {
                 alert(text)
             }
         })
@@ -21,9 +22,10 @@ class TempManager {
             method: "GET",
             url: `/city/:${cityName}`,
             success: response => {
+                response.saved = false
                 this.cityData.push(response)
             },
-            error: function(xhr, text, err) {
+            error: (xhr, text, err) => {
                 alert(text)
             }
         })
@@ -46,7 +48,7 @@ class TempManager {
             success: response => {
                 return true
             },
-            error: function(xhr, text, err) {
+            error: (xhr, text, err) => {
                 alert(text)
             }
         })
@@ -59,10 +61,9 @@ class TempManager {
             success: response => {
                 return true
             },
-            error: function(xhr, text, err) {
+            error: (xhr, text, err) => {
                 alert(text)
             }
         })
     }
-
 }
