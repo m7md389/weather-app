@@ -3,7 +3,7 @@ const router = express.Router()
 import urllib from "urllib"
 import Mongoose from "mongoose"
 import City from "../../model/City.js"
-Mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/weatherapp")
+Mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/weatherapp", { useNewUrlParser: true })
 
 const WEATHER_API_KEY = `f7cbcea3b573bde35d701b2374cf5ac0`
 

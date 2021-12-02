@@ -1,13 +1,22 @@
 const renderer = new Renderer()
-const TempManager = new TempManager()
-
-refreshWeather()
+const tempManager = new TempManager()
 
 const handleSearch = async function() {
     const cityName = $("#search-input").val()
-    await TempManager.getCityData(cityName)
-    renderer.renderData(TempManager.getDataFromDB())
+    await tempManager.getCityData(cityName)
+    renderer.renderData(tempManager.cityData)
 }
+
+const refreshWeather = async function(){
+    // console.log(tempManager.cityData)
+    // await tempManager.cityData.forEach(async function(city){
+    //     await tempManager.removeCity(city.name)
+    //     await tempManager.saveCity(city)
+    // })
+    // console.log(tempManager.cityData)
+    renderer.renderData(tempManager.cityData)
+}
+
 
 $("#search-icon").on("click", handleSearch)
 
@@ -15,34 +24,16 @@ $("#refresh").on("click", refreshWeather)
 
 $(".cities-container").on("click", ".save", () => {
     const cityName = $(".save").closest(".city-container").dataName
-    TempManager.saveCity(cityName)
-    renderer.renderData(TempManager.getDataFromDB())
+    tempManager.saveCity(cityName)
+    renderer.renderData(tempManager.cityData)
 })
-
 
 $(".cities-container").on("click", ".remove", () => {
     const cityName = $(".remove").closest(".city-container").dataName
-    TempManager.removeCity(cityName)
-    renderer.renderData(TempManager.getDataFromDB())
+    tempManager.removeCity(cityName)
+    renderer.renderData(tempManager.cityData)
 })
 
-
-const refreshWeather = function(){
-    const cities = TempManager.getDataFromDB()
-    cities.forEach(city => {
-        TempManager.removeCity(city)
-        TempManager.saveCity(city)
-    })
-    renderer.renderData(TempManager.getDataFromDB())
-}
-
-
-
-
-
-
-
-
-
-
-//
+tempManager.getDataFromDB()
+    .then(renderer.renderData(refreshWeather()))
+    

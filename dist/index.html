@@ -12,17 +12,19 @@
 <body>
     <div class="nav-container">
         <input type="text" id="search-input" placeholder="City">
-        <i class="fas fa-search-location" id="search-icon"></i>
+        <!-- <i class="fas fa-search-location" id="search-icon"></i> -->
+        <input type="button" id="search-icon" value="search">
     </div>
 
     <div class="cities-container"></div>
 
-    <input type="button" id="refresh">
+    <input type="button" id="refresh" value="refresh">
 
+    
     <script id="city-template" type="text/x-handlebars-template">
         {{#each city}}
             <div class="city-container" data-name={{name}}>
-                {{#if __CONDITION_HERE__}}
+                {{#if saved}}
                     <i class="fas fa-minus-circle remove"></i>
                 {{else}}
                     <i class="fas fa-plus-circle add"></i>
@@ -39,11 +41,10 @@
             </div>
         {{/each}}
     </script>
-
     
 
-    <script src="./handlebars/dist/handlebars.js"></script>
     <script src="./jquery/dist/jquery.js"></script>
+    <script src="./handlebars/dist/handlebars.js"></script>
     <script src="TempManager.js"></script>
     <script src="render.js"></script>
     <script src="main.js"></script>

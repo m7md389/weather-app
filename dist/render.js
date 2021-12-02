@@ -2,7 +2,7 @@ class Renderer {
     constructor() {
         this.citiesEl = $('.cities-container')
         this.handlebarsSource = $("#city-template").html()
-        this.template = Handlebars.compile(handlebarsSource)
+        this.template = Handlebars.compile(this.handlebarsSource)
     }
 
     renderData(citiesData) {
