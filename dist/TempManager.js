@@ -4,7 +4,7 @@ class TempManager {
     }
 
     async getDataFromDB() {
-        await $.ajax({
+        return await $.ajax({
             method: "GET",
             url: `/cities`,
             success: response => {

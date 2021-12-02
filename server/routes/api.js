@@ -1,14 +1,12 @@
 import express from "express"
 const router = express.Router()
 import urllib from "urllib"
-import Mongoose from "mongoose"
 import City from "../../model/City.js"
-Mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/weatherapp", { useNewUrlParser: true })
 
 const WEATHER_API_KEY = `f7cbcea3b573bde35d701b2374cf5ac0`
 
 router.get("/city/:cityName", function(req, res) {
-    const WEATHER_API_URL = `http://api.openweathermap.org/data/2.5/weather?q=${req.params.cityName}&APPID=${WEATHER_API_KEY}`
+    const WEATHER_API_URL = `http://api.openweathermap.org/data/2.5/weather?units=metric&q=${req.params.cityName}&APPID=${WEATHER_API_KEY}`
     urllib.request(WEATHER_API_URL, function(err, data, resault) {
         if (err)
             throw err;
@@ -16,7 +14,7 @@ router.get("/city/:cityName", function(req, res) {
         const jsonData = JSON.parse(data.toString())
         const weatherData = {
             name: jsonData.name,
-            temperature: Math.floor(jsonData.main.temp - 273.15),
+            temperature: jsonData.main.temp,
             condition: jsonData.weather[0].description,
             conditionPic: jsonData.weather[0].icon
         }

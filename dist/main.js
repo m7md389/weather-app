@@ -13,7 +13,6 @@ const refreshWeather = async function(){
     //     await tempManager.removeCity(city.name)
     //     await tempManager.saveCity(city)
     // })
-    // console.log(tempManager.cityData)
     renderer.renderData(tempManager.cityData)
 }
 
@@ -34,6 +33,8 @@ $(".cities-container").on("click", ".remove", () => {
     renderer.renderData(tempManager.cityData)
 })
 
-tempManager.getDataFromDB()
-    .then(renderer.renderData(refreshWeather()))
-    
+$(document).ready(async function(){
+    await tempManager.getDataFromDB() 
+    refreshWeather()
+})
+
