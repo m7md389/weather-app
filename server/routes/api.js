@@ -68,7 +68,7 @@ router.put("/UpdateData", async function(req, res) {
             
             updatedCities.push({
                 name: jsonData.name,
-                temperature: jsonData.main.temp,
+                temperature: Math.round(jsonData.main.temp),
                 condition: jsonData.weather[0].description,
                 conditionPic: jsonData.weather[0].icon
             })
