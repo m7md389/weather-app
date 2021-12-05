@@ -8,11 +8,7 @@ const handleSearch = async function() {
 }
 
 const refreshWeather = async function(){
-    // console.log(tempManager.cityData)
-    // await tempManager.cityData.forEach(async function(city){
-    //     await tempManager.removeCity(city.name)
-    //     await tempManager.saveCity(city)
-    // })
+    // await tempManager.updateData()
     renderer.renderData(tempManager.cityData)
 }
 
@@ -21,15 +17,15 @@ $("#search-icon").on("click", handleSearch)
 
 $("#refresh").on("click", refreshWeather)
 
-$(".cities-container").on("click", ".save", () => {
-    const cityName = $(".save").closest(".city-container").dataName
-    tempManager.saveCity(cityName)
+$(".cities-container").on("click", ".save", async function (){
+    const cityName = $(this).closest("div").data("name")
+    await tempManager.saveCity(cityName)
     renderer.renderData(tempManager.cityData)
 })
 
-$(".cities-container").on("click", ".remove", () => {
-    const cityName = $(".remove").closest(".city-container").dataName
-    tempManager.removeCity(cityName)
+$(".cities-container").on("click", ".remove", async function (){
+    const cityName = $(this).closest("div").data().name
+    await tempManager.removeCity(cityName)
     renderer.renderData(tempManager.cityData)
 })
 
@@ -37,4 +33,6 @@ $(document).ready(async function(){
     await tempManager.getDataFromDB() 
     refreshWeather()
 })
+
+
 

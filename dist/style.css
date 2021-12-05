@@ -1,0 +1,25 @@
+@import url("https://fonts.googleapis.com/css?family=Indie+Flower");
+
+body {
+    background-color: #dcdde1;
+}
+
+.nav-container {
+    display: grid;
+    grid-template-columns: 3fr 1fr;
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    gap: 20px;
+    height: 55px;
+}
+
+.nav-container>input {
+    font-family: 'Indie Flower';
+    text-align: center;
+    font-size: 25px;
+    font-weight: bold;
+    color: #192a56;
+    border-radius: 1%;
+}

@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="./font-awesome/font-awesome.css">
+    <link rel="stylesheet" href="./font-awesome/css/font-awesome.css">
     <title>Weather App</title>
 </head>
 
@@ -26,9 +26,9 @@
         {{#each city}}
             <div class="city-container" data-name={{name}}>
                 {{#if saved}}
-                    <i class="fas fa-minus-circle remove"></i>
+                    <i class="fas fa-minus-circle remove">remove</i>
                 {{else}}
-                    <i class="fas fa-plus-circle add"></i>
+                    <i class="fas fa-plus-circle save">save</i>
                 {{/if}}
                 
                 <div class="state-container">

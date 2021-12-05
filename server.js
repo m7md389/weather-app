@@ -1,15 +1,16 @@
-const express = require("express")
-const path = require("path")
-const api = require("./server/routes/api.js")
-const Mongoose = require("mongoose")
+import express, {json, urlencoded} from "express"
+import {join, resolve} from "path"
+import api from "./server/routes/api.js"
+import Mongoose from "mongoose"
 Mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/weatherapp", { useNewUrlParser: true })
 
+const __dirname = resolve()
 
 const app = express()
-app.use(express.json())
-app.use(express.urlencoded({ extended: false }))
-app.use(express.static(path.join(__dirname, 'dist')))
-app.use(express.static(path.join(__dirname, 'node_modules')))
+app.use(json())
+app.use(urlencoded({ extended: false }))
+app.use(express.static(join(__dirname, 'dist')))
+app.use(express.static(join(__dirname, 'node_modules')))
 
 app.use('/', api)
 

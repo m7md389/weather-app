@@ -4,9 +4,10 @@ import urllib from "urllib"
 import City from "../../model/City.js"
 
 const WEATHER_API_KEY = `f7cbcea3b573bde35d701b2374cf5ac0`
+const WEATHER_API = "http://api.openweathermap.org/data/2.5/weather?units=metric"
 
 router.get("/city/:cityName", function(req, res) {
-    const WEATHER_API_URL = `http://api.openweathermap.org/data/2.5/weather?units=metric&q=${req.params.cityName}&APPID=${WEATHER_API_KEY}`
+    const WEATHER_API_URL = `${WEATHER_API}&q=${req.params.cityName}&APPID=${WEATHER_API_KEY}`
     urllib.request(WEATHER_API_URL, function(err, data, resault) {
         if (err)
             throw err;
@@ -44,9 +45,37 @@ router.delete("/city/:cityName", function(req, res) {
     City.findOneAndRemove({name: cityName}, function (err, resault) {
         if (!resault){
             res.status(404).send(`${cityName} was not found`)
+        }else{
+            res.status(204).send(`${cityName} deleted successfully`)
         }
-        res.status(204).send(`${cityName} deleted successfully`)
     })
+})
+
+router.put("/UpdateData", async function(req, res) {
+    let cities = await City.find({})
+    let updatedCities = ["empty"]
+    // await City.remove({}).exec()
+
+    for(let city of cities){
+        const WEATHER_API_URL = `${WEATHER_API}&q=${city.name}&APPID=${WEATHER_API_KEY}`
+
+        // await is not working !!
+        await urllib.request(WEATHER_API_URL, function(err, data, resault) {
+            if (err)
+                throw err;
+
+            const jsonData = JSON.parse(data.toString())
+            
+            updatedCities.push({
+                name: jsonData.name,
+                temperature: jsonData.main.temp,
+                condition: jsonData.weather[0].description,
+                conditionPic: jsonData.weather[0].icon
+            })
+            
+        })
+    }
+    res.send(updatedCities)
 })
 
 export default router
