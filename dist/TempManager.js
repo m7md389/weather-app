@@ -19,7 +19,7 @@ class TempManager {
             }
         })
     }
-
+    
     async getCityData(cityName) {
         await $.ajax({
             method: "GET",
@@ -29,7 +29,12 @@ class TempManager {
                 this.cityData.push(response)
             },
             error: (xhr, text, err) => {
-                alert(text)
+                if(xhr.status === 0)
+                {
+                    alert(`Can't find ${cityName}`)
+                }else{
+                    alert(text)
+                }
             }
         })
     }
