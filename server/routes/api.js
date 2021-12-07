@@ -63,16 +63,18 @@ router.put("/UpdateData", async function(req, res) {
         urllib.request(WEATHER_API_URL, function (err, data, resault) {
             if (err)
                 throw err
+                
+                const jsonData = JSON.parse(data.toString())
+                
+                if (!jsonData) 
+                    throw err
 
-            const jsonData = JSON.parse(data.toString())
-            if (jsonData) {
                 updatedCities.push({
                     name: jsonData.name,
                     temperature: Math.round(jsonData.main.temp),
                     condition: jsonData.weather[0].description,
                     conditionPic: jsonData.weather[0].icon
                 })
-            }
         })
     }
     res.send(updatedCities)
