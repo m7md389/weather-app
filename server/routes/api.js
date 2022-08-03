@@ -6,7 +6,7 @@ const router = Router()
 const WEATHER_API_KEY = `f7cbcea3b573bde35d701b2374cf5ac0`
 const WEATHER_API = "http://api.openweathermap.org/data/2.5/weather?units=metric"
 
-router.get("/city/:cityName", function(req, res) {
+router.get("/cities/:cityName", function(req, res) {
     const WEATHER_API_URL = `${WEATHER_API}&q=${req.params.cityName}&APPID=${WEATHER_API_KEY}`
     urllib.request(WEATHER_API_URL, function(err, data, resault) {
         if (err)
@@ -29,7 +29,7 @@ router.get("/cities", async function(req, res) {
     })
 })
 
-router.post("/city", function(req, res) {
+router.post("/cities", function(req, res) {
     const city = req.body
     new City({
         name: city.name,
@@ -40,7 +40,7 @@ router.post("/city", function(req, res) {
     res.end()
 })
 
-router.delete("/city/:cityName", function(req, res) {
+router.delete("/cities/:cityName", function(req, res) {
     const cityName = req.params.cityName
     City.findOneAndRemove({name: cityName}, function (err, resault) {
         if (!resault){

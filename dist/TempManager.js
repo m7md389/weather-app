@@ -23,7 +23,7 @@ class TempManager {
     async getCityData(cityName) {
         await $.ajax({
             method: "GET",
-            url: `/city/${cityName}`,
+            url: `/cities/${cityName}`,
             success: response => {
                 response.saved = false
                 this.cityData.push(response)
@@ -50,7 +50,7 @@ class TempManager {
 
         await $.ajax({
             method: "POST",
-            url: `/city`,
+            url: `/cities`,
             data: city,
             success: response => {
                 this.cityData.forEach(city => {
@@ -69,7 +69,7 @@ class TempManager {
     async removeCity(cityName) {
         await $.ajax({
             method: "DELETE",
-            url: `/city/${cityName}`,
+            url: `/cities/${cityName}`,
             success: response => {
                 this.cityData.forEach(city => {
                     if(city.name === cityName){
